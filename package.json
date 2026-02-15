@@ -4,7 +4,8 @@
   "description": "Backend support layer for game-2048 with user authentication",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "db:init": "node src/db/initSchema.js"
   },
   "keywords": [],
   "author": "",

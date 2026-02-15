@@ -49,26 +49,15 @@ docker run --name game-2048-mysql \
   -d mysql:8.0
 ```
 
-首次启动后，在容器内创建 `users` 表：
+数据库表结构统一定义在 `src/db/schema.js` 中，并通过脚本一次性初始化。
+
+容器启动后，在项目根目录执行：
 
 ```bash
-docker exec -it game-2048-mysql mysql -uroot -p
+npm run db:init
 ```
 
-输入密码后，执行：
-
-```sql
-USE game_2048;
-
-CREATE TABLE IF NOT EXISTS users (
-  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  email VARCHAR(255) NOT NULL,
-  password_hash VARCHAR(255) NOT NULL,
-  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (id),
-  UNIQUE KEY uniq_users_email (email)
-);
-```
+脚本会自动连接 `.env` 中配置的数据库并创建所需表结构。
 
 ### 3. 配置环境变量
 
