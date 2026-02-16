@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
+    "start:prod": "pm2 start src/index.js --name game-2048-bff",
     "db:init": "node src/db/initSchema.js"
   },
   "keywords": [],
