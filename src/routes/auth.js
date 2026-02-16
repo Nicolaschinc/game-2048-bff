@@ -13,6 +13,29 @@ router.post("/register", async (req, res, next) => {
       throw error;
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      const error = new Error("Invalid email format");
+      error.statusCode = 400;
+      throw error;
+    }
+
+    if (typeof password !== "string" || password.length < 6) {
+      const error = new Error(
+        "Password must be at least 6 characters and contain both letters and numbers"
+      );
+      error.statusCode = 400;
+      throw error;
+    }
+
+    if (!/[A-Za-z]/.test(password) || !/\d/.test(password)) {
+      const error = new Error(
+        "Password must be at least 6 characters and contain both letters and numbers"
+      );
+      error.statusCode = 400;
+      throw error;
+    }
+
     const result = await userService.registerUser({ email, password });
 
     res.status(201).json(result);
@@ -40,4 +63,3 @@ router.post("/login", async (req, res, next) => {
 });
 
 module.exports = router;
-
